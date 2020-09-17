@@ -74,6 +74,12 @@
       <version>${flink.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
+      <version>${flink.version}</version>
+    </dependency>
+
     <!-- 日志方便调试 -->
     <dependency>
       <groupId>org.slf4j</groupId>
