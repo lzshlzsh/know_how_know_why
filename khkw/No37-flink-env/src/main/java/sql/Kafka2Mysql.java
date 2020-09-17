@@ -34,7 +34,7 @@ public class Kafka2Mysql {
                 " msg STRING \n" +
                 ") WITH (\n" +
                 "  'connector' = 'jdbc',\n" +
-                "   'url' = 'jdbc:mysql://localhost:3306/flinkdb?characterEncoding=utf-8&useSSL=false',\n" +
+                "   'url' = 'jdbc:mysql://localhost:3307/flinkdb?characterEncoding=utf-8&useSSL=false',\n" +
                 "   'table-name' = 'cdn_log',\n" +
                 "   'username' = 'root',\n" +
                 "   'password' = '123456',\n" +
