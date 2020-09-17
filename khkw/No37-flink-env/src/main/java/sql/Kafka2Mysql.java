@@ -1,8 +1,10 @@
 package sql;
 
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
+import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 /**
  * 项目名称: Apache Flink 知其然，知其所以然 - sql
@@ -47,7 +49,9 @@ public class Kafka2Mysql {
                 .useBlinkPlanner()
                 .inStreamingMode()
                 .build();
-        TableEnvironment tEnv = TableEnvironment.create(settings);
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.disableOperatorChaining();
+        TableEnvironment tEnv = StreamTableEnvironment.create(env, settings);
 
         //注册source和sink
         tEnv.executeSql(sourceDDL);
