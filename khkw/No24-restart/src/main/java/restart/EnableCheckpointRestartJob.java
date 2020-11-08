@@ -25,6 +25,7 @@ public class EnableCheckpointRestartJob {
         env.setParallelism(1);
 
         env.enableCheckpointing(2000);
+        env.disableOperatorChaining();
 
         DataStream<Tuple3<String, Integer, Long>> source = env
                 .addSource(new SourceFunction<Tuple3<String, Integer, Long>>() {
@@ -54,6 +55,8 @@ public class EnableCheckpointRestartJob {
                 return new Tuple3<>(event.f0, event.f1, new Timestamp(System.currentTimeMillis()).toString());
             }
         }).print();
+
+        log.warn(env.getExecutionPlan());
 
         env.execute("FixedDelayRestart");
     }
