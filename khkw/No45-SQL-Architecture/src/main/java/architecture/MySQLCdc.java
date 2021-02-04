@@ -1,8 +1,12 @@
 package architecture;
 
+import org.apache.flink.api.common.restartstrategy.RestartStrategies;
+import org.apache.flink.api.common.time.Time;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+
+import java.util.concurrent.TimeUnit;
 
 public class MySQLCdc {
     public static void main(String[] args) throws Exception {
@@ -44,6 +48,13 @@ public class MySQLCdc {
                 .inStreamingMode()
                 .build();
         StreamExecutionEnvironment sEnv = StreamExecutionEnvironment.getExecutionEnvironment();
+
+        sEnv.setParallelism(2);
+        sEnv.enableCheckpointing(10000);
+        sEnv.disableOperatorChaining();
+        sEnv.setRestartStrategy(
+                RestartStrategies.failureRateRestart(
+                        5, Time.of(5, TimeUnit.SECONDS), Time.of(5, TimeUnit.SECONDS)));
 
         StreamTableEnvironment tEnv = StreamTableEnvironment.create(sEnv, settings);
 
