@@ -30,26 +30,40 @@ under the License.
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <flink.version>1.11.1</flink.version>
+        <flink.version>1.11.0</flink.version>
         <java.version>1.8</java.version>
         <scala.binary.version>2.11</scala.binary.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <log4j.version>2.13.3</log4j.version>
+        <flink.scope>compile</flink.scope>
+        <log.scope>runtime</log.scope>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <flink.scope>provided</flink.scope>
+                <log.scope>provided</log.scope>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
-        
+
         <!-- 利用Java开发 -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-api-java-bridge_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <!-- 使用Blink Planner -->
@@ -57,6 +71,7 @@ under the License.
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner-blink_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <!-- 支持一些自定义的消息格式，比如kafka里面消息格式是json的，或者需要自定义函数支持 -->
@@ -64,6 +79,7 @@ under the License.
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-common</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <!-- JDBC Connector的支持，本案例会是使用MySQL -->
@@ -71,6 +87,7 @@ under the License.
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-jdbc_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <!-- Kafka Connector的支持-->
@@ -78,13 +95,15 @@ under the License.
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-sql-connector-kafka-0.11_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba.ververica</groupId>
             <!-- add the dependency matching your database -->
             <artifactId>flink-sql-connector-mysql-cdc</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>1.1.0</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <!-- Kafka里面的消息采用Json格式 -->
@@ -92,6 +111,7 @@ under the License.
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-json</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <!--提交作业所必须的依赖，比如：LocalExecutorFactory -->
@@ -99,6 +119,7 @@ under the License.
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-clients_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
+            <scope>${flink.scope}</scope>
         </dependency>
 
         <!--去掉test-jar防止日志无法打印-->
@@ -115,19 +136,19 @@ under the License.
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j.version}</version>
-            <scope>runtime</scope>
+            <scope>${log.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
-            <scope>runtime</scope>
+            <scope>${log.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
-            <scope>runtime</scope>
+            <scope>${log.scope}</scope>
         </dependency>
     </dependencies>
 
