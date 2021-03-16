@@ -21,11 +21,11 @@ public class MySQLCdc {
                 " 'port' = '3306', \n" +
                 " 'username' = 'root', \n" +
                 " 'password' = '1Dog@oicq', \n" +
-                " -- 'source-offset-file' = 'mysql-bin.000005', \n" +
-                " -- 'source-offset-pos' = '17181', \n" +
+                " -- 'source-offset-file' = 'mysql-bin.000022', \n" +
+                " -- 'source-offset-pos' = '23549', \n" +
                 " 'database-name' = 'test', \n" +
                 " 'table-name' = 't_char', \n" +
-                " -- 'source-pos-logging-interval' = '1 min'\n" +
+                " 'source-pos-logging-interval' = '1 min'\n" +
                 ")";
 
         // mysql cdc sink
@@ -104,15 +104,16 @@ public class MySQLCdc {
         tEnv.executeSql(sql);
 
         //注册source和sink
-        tEnv.executeSql(sourceDDL2);
-        tEnv.executeSql(sinkDDL2);
+//        tEnv.executeSql(sourceDDL2);
+//        tEnv.executeSql(sinkDDL2);
+//
+//        String sql2 = "INSERT INTO t_char_sink2 SELECT *,CURRENT_TIMESTAMP FROM t_char2";
+//
+//        String plan2 = tEnv.explainSql(sql2);
+//        System.out.println(plan2);
+//
+//        tEnv.executeSql(sql2);
 
-        String sql2 = "INSERT INTO t_char_sink2 SELECT *,CURRENT_TIMESTAMP FROM t_char2";
-
-        String plan2 = tEnv.explainSql(sql2);
-        System.out.println(plan2);
-
-        tEnv.executeSql(sql2);
         tEnv.execute(MySQLCdc.class.getSimpleName());
     }
 }
