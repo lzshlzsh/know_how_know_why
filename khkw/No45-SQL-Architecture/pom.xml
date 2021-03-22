@@ -114,6 +114,13 @@ under the License.
             <scope>${flink.scope}</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.iceberg</groupId>
+            <artifactId>iceberg-flink-runtime</artifactId>
+            <version>0.11.0</version>
+            <scope>${flink.scope}</scope>
+        </dependency>
+
         <!--提交作业所必须的依赖，比如：LocalExecutorFactory -->
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -147,6 +154,13 @@ under the License.
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+            <scope>${log.scope}</scope>
+        </dependency>
+        <dependency>
+            <!-- API bridge between log4j 1 and 2 -->
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
             <version>${log4j.version}</version>
             <scope>${log.scope}</scope>
         </dependency>
