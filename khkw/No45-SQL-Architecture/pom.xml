@@ -36,16 +36,16 @@ under the License.
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <log4j.version>2.13.3</log4j.version>
-        <flink.scope>compile</flink.scope>
-        <log.scope>runtime</log.scope>
+        <flink.scope>provided</flink.scope>
+        <log.scope>provided</log.scope>
     </properties>
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>standalone</id>
             <properties>
-                <flink.scope>provided</flink.scope>
-                <log.scope>provided</log.scope>
+                <flink.scope>compile</flink.scope>
+                <log.scope>runtime</log.scope>
             </properties>
         </profile>
     </profiles>
